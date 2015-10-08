@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/nprogress.css">
+        <link rel="stylesheet" type="text/css" href="css/icomoon/style.css">
+        <link rel="stylesheet" type="text/css" href="css/tubenearyou.css">
+        <link rel='stylesheet' type='text/css' href='https://fonts.googleapis.com/css?family=Open+Sans:300'>
+    </head>
+
+    <body ontouchstart="">
+        <div    id="app-canvas"></div>
+        <script id="app-template" type="text/template">
+
+            <div id="home-page" class="{{#unless page == 'home'}} invisible {{/unless}}">
+
+                <div class="launcher">
+
+                    <div class="logo">
+                        <img src="css/img/logo.png" alt="Tube Near You" title="Tube Near You"/>
+                    </div>
+
+                    <div class="title">
+                        <h1>Tube Near You</h1>
+                    </div>
+
+                    <div class="desc">
+                        <h2>Discover videos on Youtube<br/>by specifying where they come from.</h2>
+                    </div>
+
+                    <div class="start">
+                        <a class="button" on-click="start">Start now!</a>
+                    </div>
+                </div>
+
+                <div class="footer"><span>Made with love by <a href="https://twitter.com/thenewvu" target="_blank" title="Follow him on Twitter">Vu Le</a></span></div>
+            </div>
+
+            <div id="search-page" class="{{#unless page == 'search'}} invisible {{/unless}}">
+
+                {{#if searchQuery}}
+                    <div id="query-desc" on-click="open-map" title="Open the map">
+                        {{searchQueryDescription}}
+                    </div>
+                {{/if}}
+
+                <a id="open-map" class="button circle" on-click="open-map">
+                    <img src="css/img/logo.png" alt="Open the map" title="Open the map">
+                </a>
+
+                <div id="map" class="{{#unless mapEnabled}} invisible {{/unless}}">
+
+                    <div id="map-canvas"></div>
+                    <div id="map-custom-ui">
+
+                        <input id="place"   type="text" placeholder="place"/>
+                        <br/>
+                        <input id="keyword" type="text" placeholder="keyword"/>
+                        <br/>
+                        <div id="sub-add-radius">
+                            <a id="sub-radius" class="button">-</a>
+                            <input id="radius" type="text" value="3km" disabled/>
+                            <a id="add-radius" class="button">+</a>
+                        </div>
+                        <br/>
+                        <a id="search" class="button" on-click="search-button-clicked">Search</a>
+                    </div>
+                </div>
+
+                {{#if searchResult}} {{#with searchResult}}
+                    {{#if items}}
+                        <div id="video-grid">
+                            {{#each items}}
+                                <div class="video" on-click="play:{{id.videoId}}">
+
+                                    <div class="thumb"><img src="https://i.ytimg.com/vi/{{id.videoId}}/mqdefault.jpg"></div>
+                                    <div class="info">
+
+                                        <div class="title">{{snippet.title}}</div>
+
+                                        {{#if snippet.channelTitle}}
+                                            <div class="meta">by {{snippet.channelTitle}}</div>
+                                        {{/if}}
+
+                                        <div class="meta">{{formatDateFromNow(snippet.publishedAt)}}</div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+
+                        {{#if nextPageToken}}
+                            <div class="button-box">
+                                <div class="title">Load more</div>
+
+                                <a class="button circle" on-click="load-more">
+                                    <i class="icon-chevron-right"></i>
+                                </a>
+                            </div>
+                        {{/if}}
+
+                        <div class="button-box">
+                            <div class="title">Share this result</div>
+
+                            <a class="button circle" on-click="share-result-facebook">
+                                <i class="icon-facebook"></i>
+                            </a>
+                            <a class="button circle" on-click="share-result-twitter">
+                                <i class="icon-twitter"></i>
+                            </a>
+                            <a class="button circle" on-click="share-result-other">
+                                <i class="icon-ellipsis-h"></i>
+                            </a>
+                        </div>
+
+                        <div class="button-box">
+                            <div class="title">Make it better</div>
+
+                            <a class="button circle" on-click="review-app">
+                                <i class="icon-pencil"></i>
+                            </a>
+                        </div>
+
+                        <div class="footer">Made with love by <a href="https://twitter.com/thenewvu" target="_blank" title="Follow him on Twitter">Vu Le</a></div>
+                    {{else}}
+                        <div id="no-result">Sorry ... there is no video there!</div>
+                    {{/if}}
+                {{/with}} {{/if}}
+            </div>
+
+            <div id="play-page" class="{{#unless page == 'play'}} invisible {{/unless}}">
+                <div id="player"></div>
+            </div>
+
+            <div id="share-video-page" class="{{#unless page == 'share-video'}} invisible {{/unless}}">
+
+                <div class="button-box">
+                    <div class="title">Replay this video</div>
+
+                    <a class="button circle" on-click="replay-video">
+                        <i class="icon-play"></i>
+                    </a>
+                </div>
+
+                <div class="button-box">
+                    <div class="title">Share it</div>
+
+                    <a class="button circle" on-click="share-video-facebook">
+                        <i class="icon-facebook"></i>
+                    </a>
+                    <a class="button circle" on-click="share-video-twitter">
+                        <i class="icon-twitter"></i>
+                    </a>
+                    <a class="button circle" on-click="share-video-other">
+                        <i class="icon-ellipsis-h"></i>
+                    </a>
+                </div>
+
+                <div class="button-box">
+                    <div class="title">Make it better</div>
+
+                    <a class="button circle" on-click="review-app">
+                        <i class="icon-pencil"></i>
+                    </a>
+                </div>
+            </div>
+        </script>
+
+        <script src="js/promise.js"></script> <!-- Promise polyfill for fetch.js -->
+        <script src="js/history.js"></script> <!-- window.history polyfill for search.js -->
+        <script src="js/fetch.js"></script>
+        <script src="js/nprogress.js"></script>
+        <script src="js/ractive.js"></script>
+        <script src="js/crossplatform.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/android.js"></script>
+
+        <script type="text/javascript">
+            window.onGoogleMapApiReady = function()
+            {
+                dispatchCustomEvent('google-map-api-ready');
+            }
+
+            window.onYouTubeIframeAPIReady = function()
+            {
+                dispatchCustomEvent('youtube-iframe-api-ready');
+            }
+        </script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnkv53quv__f_fWS1KNEEI5V6IlZcXbgc&amp;libraries=places&amp;callback=onGoogleMapApiReady"></script>
+        <script async src="https://www.youtube.com/iframe_api"></script>
+    </body>
+
+</html>

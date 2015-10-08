@@ -1,0 +1,444 @@
+/**********************************************************************/
+/** Common stuffs
+/**********************************************************************/
+body
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+
+    overflow: hidden;
+
+    color: #dd6a57;
+    background-color: #fff;
+}
+
+input
+{
+    display: inline-block;
+
+    width: 18em;
+    margin: .2em;
+    padding: .6em .4em;
+
+    border: .2em solid #fff;
+    border-radius: .3em;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,.3);
+}
+
+img
+{
+    width: 100%;
+    height: auto;
+
+    vertical-align: middle;
+}
+
+.button
+{
+    display: inline-block;
+
+    width: 9em;
+    margin: .2em;
+    padding: .6em 0;
+
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    text-decoration: none;
+
+    border: .2em solid #fff;
+    border-radius: .3em;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 8px rgba(0,0,0,.3);
+            box-shadow: 0 2px 8px rgba(0,0,0,.3);
+
+    -webkit-tap-highlight-color: rgba(0,0,0,0); /* disable touch highlight on mobile */
+}
+
+.button:active
+{
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.3);
+            box-shadow: 0 1px 2px rgba(0,0,0,.3);
+}
+
+.button.circle
+{
+    width: 5em;
+    height: 5em;
+    padding: 0;
+
+    border: 0;
+    border-radius: 2.5em;
+}
+
+.button.circle i
+{
+    font-size: 2em;
+
+    display: inline-block;
+
+    padding-top: .75em;
+}
+
+.button.circle i.icon-play
+{
+    padding-left: .2em;
+}
+
+.button.circle i.icon-chevron-right
+{
+    padding-left: .18em;
+}
+
+
+.button.store
+{
+    padding: 0;
+
+    border: none;
+    border-radius: 1em;
+}
+
+.button-box
+{
+    margin-top: 1.5em;
+
+    text-align: center;
+}
+
+.button-box .title
+{
+    font-size: 1.5em;
+
+    margin-bottom: .6em;
+}
+
+.button-box .button
+{
+    margin: 0 1em;
+}
+
+.invisible
+{
+    display: none;
+}
+
+.header
+{
+    margin: 0 .4em;
+    padding: .4em 0;
+
+    text-align: center;
+
+    border-bottom: 1px solid;
+}
+
+.footer
+{
+    position: absolute;
+    bottom: .4em;
+
+    width: 100%;
+
+    text-align: center;
+}
+
+/* App promo */
+
+.promo
+{
+    display: inline-block;
+
+    padding: .2em 0;
+}
+
+.promo a
+{
+    text-decoration: none;
+}
+
+.promo .logo
+{
+    display: inline-block;
+
+    width: 9em;
+
+    vertical-align: middle;
+}
+
+.promo .text
+{
+    display: inline-block;
+
+    text-align: center;
+    vertical-align: middle;
+}
+
+.promo .title
+{
+    font-size: 2.2em;
+}
+
+.promo .desc
+{
+    margin: .2em 0 .4em 0;
+}
+
+
+@media screen and (max-width: 500px) , screen and (max-height: 520px)
+{
+    body
+    {
+        font-size: 13px;
+    }
+}
+
+/**********************************************************************/
+/** Index page stuffs
+/**********************************************************************/
+
+.launcher
+{
+    text-align: center;
+}
+
+.launcher .logo
+{
+    display: inline-block;
+
+    width: 13em;
+}
+
+.launcher .title
+{
+    font-size: 2.4em;
+}
+
+.launcher .desc
+{
+    font-size: 1.4em;
+
+    margin: .6em;
+}
+
+.launcher .stores
+{
+    margin: 1em 0;
+}
+
+.launcher .start
+{
+    font-size: 1.5em;
+}
+
+@media screen and (min-height: 360px)
+{
+    #app-canvas .launcher .start
+    {
+        margin-top: 2em;
+    }
+}
+
+/**********************************************************************/
+/** Search page stuffs
+/**********************************************************************/
+
+#search-page
+{
+    overflow-y: auto;
+}
+
+#search-page .footer
+{
+    position: relative;
+    bottom: auto;
+
+    margin: 1em 0 .4em 0;
+}
+
+#open-map
+{
+    position: absolute;
+    right: 1.4em;
+}
+
+#query-desc
+{
+    font-size: 1.4em;
+
+    margin: 0 1em;
+    padding: 1em;
+
+    cursor: pointer;
+    text-align: center;
+
+    border-bottom: 1px solid;
+}
+
+#map
+{
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+#map-canvas
+{
+    height: 100%;
+}
+
+#map-custom-ui
+{
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+
+    text-align: right;
+
+    color: rgb(25,25,25);
+}
+
+#sub-add-radius
+{
+    display: inline-block;
+
+    margin: .2em;
+
+    border-radius: .3em;
+    background-color: #fff;
+    -webkit-box-shadow: 0 2px 6px rgba(0,0,0,.3);
+            box-shadow: 0 2px 6px rgba(0,0,0,.3);
+}
+
+#add-radius,
+#sub-radius
+{
+    width: 2.5em;
+    margin: 0;
+
+    vertical-align: middle;
+}
+
+#radius
+{
+    width: 4em;
+    padding: 0;
+
+    text-align: center;
+    vertical-align: middle;
+
+    -webkit-box-shadow: none;
+            box-shadow: none;
+}
+
+#search
+{
+    width: 6.5em;
+    margin-right: .4em;
+}
+
+#no-result
+{
+    font-size: 1.2em;
+
+    margin: 1em 0;
+
+    text-align: center;
+}
+
+#video-grid
+{
+    margin: 1em 0;
+
+    text-align: center;
+}
+
+.video
+{
+    display: inline-block;
+
+    width: 290px;
+    margin: 5px;
+
+    vertical-align: top;
+}
+
+.video a
+{
+    text-decoration: none;
+}
+
+.video .thumb
+{
+    height: 163px;
+}
+
+.video .thumb img
+{
+    -webkit-border-radius: 3px 3px 0 0;
+            border-radius: 3px 3px 0 0;
+}
+
+.video .info
+{
+    font-size: 16px;
+    font-weight: bolder;
+
+    padding: .25em .3em;
+
+    text-align: left;
+
+    color: white;
+    -webkit-border-radius: 0 0 3px 3px;
+            border-radius: 0 0 3px 3px;
+    background-color: #dd6a57;
+}
+
+.video .info .title
+{
+    overflow: hidden;
+
+    margin-bottom: .3em;
+
+    word-wrap: break-word;
+}
+
+.video .info .meta
+{
+    font-size: .7em;
+    line-height: 1.4em;
+}
+
+/**********************************************************************/
+/** Play page stuffs
+/**********************************************************************/
+
+#share-box
+{
+    font-size: .6em;
+
+    position: absolute;
+    right: 0;
+
+    margin-top: .2em;
+    margin-right: .4em;
+}
+
+#play-page .header
+{
+    border-bottom: none;
+}
+
+/**********************************************************************/
+/** Android specific
+/**********************************************************************/
+
+#app-canvas #open-map
+{
+    position: fixed;
+    top: 1em;
+    right: 1em;
+}

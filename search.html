@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <title>Tube Near You</title>
+        <meta name="description" content="Discover videos on Youtube by specifying where they come from." />
+
+        <!-- Schema.org markup for Google+ -->
+        <meta itemprop="name" content="Tube Near You">
+        <meta itemprop="description" content="Discover videos on Youtube by specifying where they come from.">
+        <meta itemprop="image" content="http://tubenearyou.com/css/img/logo-og.png">
+
+        <!-- Twitter Card data -->
+        <meta name="twitter:card" content="summary_large_image">
+        <meta name="twitter:site" content="@tubenearyou">
+        <meta name="twitter:title" content="Tube Near You">
+        <meta name="twitter:description" content="Discover videos on Youtube by specifying where they come from.">
+        <meta name="twitter:creator" content="@thenewvu">
+        <!-- Twitter summary card with large image must be at least 280x150px -->
+        <meta name="twitter:image:src" content="http://tubenearyou.com/css/img/feature.png">
+
+        <!-- Open Graph data -->
+        <meta property="og:title" content="Tube Near You" />
+        <meta property="og:type" content="article" />
+        <meta property="og:url" content="http://tubenearyou.com/" />
+        <meta property="og:image" content="http://tubenearyou.com/css/img/logo-og.png" />
+        <meta property="og:description" content="Discover videos on Youtube by specifying where they come from." />
+        <meta property="og:site_name" content="Tube Near You" />
+        <meta property="fb:admins" content="100000176848531" />
+
+        <link rel="stylesheet" type="text/css" href="css/normalize.css">
+        <link rel="stylesheet" type="text/css" href="css/nprogress.css">
+        <link rel="stylesheet" type="text/css" href="css/icomoon/style.css">
+        <link rel="stylesheet" type="text/css" href="css/tubenearyou.css">
+        <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Open+Sans:300">
+    </head>
+
+    <body>
+        <div id="search-page">
+            <div class="header">
+                <div class="promo">
+                    <div class="logo">
+                        <a href="/" target="_blank">
+                            <img src="css/img/logo.png" alt="Tube Near You" title="Tube Near You"/>
+                        </a>
+                    </div>
+                    <div class="text">
+                        <div class="title">
+                            <h1><a href="/" target="_blank">Tube Near You</a></h1>
+                        </div>
+                        <div class="desc">
+                            <h2><a href="/" target="_blank">Discover videos on Youtube<br/>by specifying where they come from.</a></h2>
+                        </div>
+                        <div>
+                            <a class="button store" href="https://play.google.com/store/apps/details?id=thenewvu.app.tubenearyou" target="_blank">
+                                <img src="https://developer.android.com/images/brand/en_generic_rgb_wo_45.png" alt="Get it on Google Play"/>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <script id="search-page-template" type="text/template">
+                <a id="open-map" class="button circle" on-click="set('map.enabled', true)">
+                    <img src="css/img/logo.png" alt="Open the map" title="Open the map">
+                </a>
+
+                <div id="map" class="{{#unless map.enabled}} invisible {{/unless}}">
+                    <div id="map-canvas"></div>
+                    <div id="map-custom-ui">
+
+                        <input id="place"   type="text" placeholder="place"/>
+                        <br/>
+                        <input id="keyword" type="text" placeholder="keyword"/>
+                        <br/>
+                        <div id="sub-add-radius">
+                            <a id="sub-radius" class="button">-</a>
+                            <input id="radius" type="text" value="3km" disabled/>
+                            <a id="add-radius" class="button">+</a>
+                        </div>
+                        <br/>
+                        <a id="search" class="button" on-click="search-button-clicked">Search</a>
+                    </div>
+                </div>
+
+                {{#if query}}
+                    <div id="query-desc" on-click="set('map.enabled', true)" title="Open the map">
+                        {{queryDescription}}
+                    </div>
+                {{/if}}
+
+                {{#if response}} {{#with response}}
+                    {{#if items}}
+                        <div id="video-grid">
+                            {{#each items}}
+                                <div class="video">
+
+                                    <div class="thumb">
+                                        <a href="play.html?videoId={{id.videoId}}" target="_blank">
+                                            <img src="https://i.ytimg.com/vi/{{id.videoId}}/mqdefault.jpg">
+                                        </a>
+                                    </div>
+                                    <div class="info">
+
+                                        <div class="title">
+                                            <a href="play.html?videoId={{id.videoId}}" target="_blank" title="{{snippet.title}}">{{snippet.title}}</a>
+                                        </div>
+
+                                        {{#if snippet.channelTitle}}
+                                            <div class="meta">
+                                                <a href="play.html?videoId={{id.videoId}}" target="_blank">by {{snippet.channelTitle}}</a>
+                                            </div>
+                                        {{/if}}
+
+                                        <div class="meta">
+                                            <a href="play.html?videoId={{id.videoId}}" target="_blank">{{formater.fromNow(snippet.publishedAt)}}</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            {{/each}}
+                        </div>
+
+                        {{#if nextPageToken}}
+                            <div class="button-box">
+                                <div class="title">Load more</div>
+
+                                <a class="button circle" on-click="load-more">
+                                    <i class="icon-chevron-right"></i>
+                                </a>
+                            </div>
+                        {{/if}}
+
+                        <div class="button-box">
+                            <div class="title">Share this result</div>
+
+                            <a class="button circle" on-click="share-facebook">
+                                <i class="icon-facebook"></i>
+                            </a>
+                            <a class="button circle" on-click="share-twitter">
+                                <i class="icon-twitter"></i>
+                            </a>
+                        </div>
+
+                        <div class="footer">Made with love by <a href="https://twitter.com/thenewvu" target="_blank" title="Follow him on Twitter">Vu Le</a></div>
+                    {{else}}
+                        <div id="no-result">Sorry ... there is no video there!</div>
+                    {{/if}}
+                {{/with}} {{/if}}
+            </script>
+        </div>
+
+        <script src="js/promise.js"></script> <!-- Promise polyfill for fetch.js -->
+        <script src="js/history.js"></script> <!-- window.history polyfill for search.js -->
+        <script src="js/fetch.js"></script>
+        <script src="js/nprogress.js"></script>
+        <script src="js/ractive.js"></script>
+        <script src="js/ractive-events-tap.js"></script>
+        <script src="js/util.js"></script>
+        <script src="js/search.js"></script>
+
+        <script type="text/javascript">
+            window.onGoogleMapApiReady = function()
+            {
+                dispatchCustomEvent('google-map-api-ready');
+            }
+
+            window.fbAsyncInit = function()
+            {
+                FB.init
+                ({
+                    appId: '1629149460703338',
+                    xfbml: true,
+                    version: 'v2.4'
+                });
+            };
+        </script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDnkv53quv__f_fWS1KNEEI5V6IlZcXbgc&amp;libraries=places&amp;callback=onGoogleMapApiReady"></script>
+        <script async src="https://connect.facebook.net/en_US/sdk.js"></script>
+    </body>
+
+</html>
